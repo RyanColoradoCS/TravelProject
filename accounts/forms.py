@@ -12,9 +12,23 @@ class CustomUserCreationForm(UserCreationForm):
     # Meta class overrides default fields
     class Meta(UserCreationForm.Meta):
         model = CustomUser
-        fields = UserCreationForm.Meta.fields + ("age", "car_type")
+        fields = UserCreationForm.Meta.fields + (
+            "username",
+            "email",
+            "age",
+            "first_name",
+            "last_name",
+            "car_type"
+        )
 
 class CustomUserChangeForm(UserChangeForm):
-    class Meta(UserChangeForm.Meta):
+    class Meta:
         model = CustomUser
-        fields = UserChangeForm.Meta.fields
+        fields = (
+            "username",
+            "email",
+            "age",
+            "first_name",
+            "last_name",
+            "car_type"
+        )
