@@ -17,9 +17,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from . import views
+from django.views.generic.base import TemplateView
+
 
 urlpatterns = [
+    # Admin URLs
     path('admin/', admin.site.urls),
-    path('', include("blog.urls")), # This line includes the URL patterns defined in another module, in this case, blogs.urls
-    path('map/', views.map, name='map'),
+    
+    # App-specific URLs
+    # This line includes the URL patterns defined in another module, in this case, blogs.urls
+    path('', include("blog.urls")),  # Blog app at the root path
+    path('map/', views.map, name='map'),  # Map view
+    path('accounts/', include("accounts.urls")),  # Custom account URLs
+    path('accounts/', include("django.contrib.auth.urls")),  # Django's built-in auth
+    
+    # Static pages
+    path("", TemplateView.as_view(template_name="home.html"), name="home"),  # Home page
+    path("home/", TemplateView.as_view(template_name="home.html"), name="home"),  # Home page
 ]
