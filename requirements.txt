@@ -1,7 +1,9 @@
 asgiref==3.8.1
 certifi==2024.12.14
 charset-normalizer==3.4.1
+crispy-bootstrap5==2024.10
 Django==5.1.4
+django-crispy-forms==2.3
 django-google-maps==0.13.0
 idna==3.10
 python-decouple==3.8

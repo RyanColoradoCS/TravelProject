@@ -32,6 +32,7 @@ urlpatterns = [
     path('accounts/', include("django.contrib.auth.urls")),  # Django's built-in auth
     
     # Static pages
-    path("", TemplateView.as_view(template_name="home.html"), name="home"),  # Home page
-    path("home/", TemplateView.as_view(template_name="home.html"), name="home"),  # Home page
+    #path("", TemplateView.as_view(template_name="home.html"), name="home"),  # Home page
+    #path("home/", TemplateView.as_view(template_name="home.html"), name="home"),  # Home page
+    path("", include("pages.urls")),
 ]

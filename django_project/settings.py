@@ -40,10 +40,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog.apps.BlogConfig',
-    'accounts.apps.AccountsConfig', # custom users
+    #'accounts.apps.AccountsConfig', # custom users
     # other apps 
     'django_google_maps',
-    # install bootstrap?
+
+    # 3rd Party
+    "crispy_forms",  # new
+    "crispy_bootstrap5",  # new
+    
+    'pages', # for static pages
+    'accounts',
     
 ]
 '''
@@ -144,3 +150,6 @@ AUTH_USER_MODEL = "accounts.CustomUser" # custom user accounts
 # added so users are redirected to home page when they log out
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
