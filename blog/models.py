@@ -100,3 +100,12 @@ class Location(models.Model):
     
     def __str__(self):
         return f"Location {self.id} for Trip {self.trip.id}"
+
+class UserPost(models.Model):
+    
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    content = models.TextField(max_length=500)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.author.username}: {self.content[:30]}"

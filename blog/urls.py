@@ -1,6 +1,6 @@
 from django.urls import path 
 # Import the path function, which is used to define URL patterns.#
-from .views import BlogListView, BlogDetailView, store_api_data, retrieve_data_from_google_maps, HomeView
+from .views import BlogListView, BlogDetailView, store_api_data, retrieve_data_from_google_maps, HomeView, feed_view
 
 # Define the URL patterns for the blog app
 urlpatterns = [
@@ -10,6 +10,7 @@ urlpatterns = [
     path("blog/", BlogListView.as_view(), name="blog"),
     path('store-data/', store_api_data, name='store_data'),
     path('test/', HomeView.as_view(), name='mydata'),
+    path('feed/', feed_view, name='feed'),
 ]
 
 

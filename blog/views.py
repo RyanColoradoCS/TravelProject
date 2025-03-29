@@ -1,9 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, View # A generic class-based view that displays a list of objects.
+from django.contrib.auth.decorators import login_required
 from .models import Post, GoogleMapsData, Locations
 from django.conf import settings
 import logging
 import requests
+
+from .models import UserPost
+from .forms import PostForm
 
 logger = logging.getLogger(__name__)
 
@@ -71,3 +75,19 @@ class GeoCodingView(View):
         }
 
         return render(request, self.template_name, context)
+    
+    
+
+@login_required
+def feed_view(request):
+    posts = UserPost.objects.all().order_by('-created_at')
+    if request.method == "POST":
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            return redirect('feed')
+    else:
+        form = PostForm()
+    return render(request, 'feed.html', {'posts': posts, 'form': form})
