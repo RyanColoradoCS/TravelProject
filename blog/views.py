@@ -91,3 +91,9 @@ def feed_view(request):
     else:
         form = PostForm()
     return render(request, 'feed.html', {'posts': posts, 'form': form})
+
+@login_required
+def profile_view(request):
+    user = request.user  # Retrieve the logged-in user's data
+    # Django includes an authentication system, and the request object represents an HTTP request made to your server.
+    return render(request, 'profile.html', {'user': user})
