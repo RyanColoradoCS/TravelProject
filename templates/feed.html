@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Welcome, {{ user.username }}!</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-primary" type="submit">Post</button>
+</form>
+
+<hr>
+<h3>Recent Posts:</h3>
+<ul>
+    {% for post in posts %}
+        <li>
+            <strong>{{ post.author.username }}:</strong> {{ post.content }}
+            <small>{{ post.created_at }}</small>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock content %}
