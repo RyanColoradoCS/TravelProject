@@ -5,6 +5,7 @@ from .models import Post, GoogleMapsData, Locations
 from django.conf import settings
 import logging
 import requests
+from accounts.models import CustomUser 
 
 from .models import UserPost
 from .forms import PostForm
@@ -97,3 +98,12 @@ def profile_view(request):
     user = request.user  # Retrieve the logged-in user's data
     # Django includes an authentication system, and the request object represents an HTTP request made to your server.
     return render(request, 'profile.html', {'user': user})
+
+
+@login_required
+def profile_view(request):
+    user = request.user  # Retrieve the logged-in user's data
+    
+    query = request.GET.get('q')  # Get the search query from the request
+    users = CustomUser.objects.filter(username__icontains=query) if query else None
+    return render(request, 'profile.html', {'users': users, 'query': query})
