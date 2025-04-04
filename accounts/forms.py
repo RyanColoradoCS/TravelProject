@@ -16,9 +16,9 @@ class CustomUserCreationForm(UserCreationForm):
             "username",
             "email",
             "age",
-            "first_name",
-            "last_name",
-            "car_type"
+            "city",
+            "state",
+            "relationship_to_kinsey",
         )
 
 class CustomUserChangeForm(UserChangeForm):
@@ -28,7 +28,7 @@ class CustomUserChangeForm(UserChangeForm):
             "username",
             "email",
             "age",
-            "first_name",
-            "last_name",
-            "car_type"
+            "city",
+            "state",
+            "relationship_to_kinsey",
         )

@@ -17,12 +17,12 @@ class UsersManagersTests(TestCase):
             email="testuser@ryan.com", 
             password="pass1234",
             age=30,
-            car_type="gas",
+            #car_type="gas",
         )
         self.assertEqual(user.username, "testuser")
         self.assertEqual(user.email, "testuser@ryan.com")
         self.assertEqual(user.age, 30)
-        self.assertEqual(user.car_type, "gas")
+        #self.assertEqual(user.car_type, "gas")
         self.assertTrue(user.is_active)
         self.assertFalse(user.is_staff)
         self.assertFalse(user.is_superuser)
@@ -34,12 +34,12 @@ class UsersManagersTests(TestCase):
             email="testsuperuser@example.com",
             password="testpass1234",
             age=30,
-            car_type="electric",
+            #car_type="electric",
         )
         self.assertEqual(admin_user.username, "testsuperuser")
         self.assertEqual(admin_user.email, "testsuperuser@example.com")
         self.assertEqual(admin_user.age, 30)
-        self.assertEqual(admin_user.car_type, "electric")
+        # self.assertEqual(admin_user.car_type, "electric")
         self.assertTrue(admin_user.is_active)
         self.assertTrue(admin_user.is_staff)
         self.assertTrue(admin_user.is_superuser)

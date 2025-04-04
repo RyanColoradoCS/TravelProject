@@ -5,9 +5,17 @@ from django.contrib.auth.models import AbstractUser
 
 
 
+from django.contrib.auth.models import AbstractUser
+from django.db import models
+
 class CustomUser(AbstractUser):
     age = models.PositiveIntegerField(null=True, blank=True)
-    car_type = models.CharField(max_length=50, null=True, blank=True)
+    city = models.CharField(max_length=100, null=True, blank=True)
+    state = models.CharField(max_length=100, null=True, blank=True)
+    twitter_link = models.CharField(max_length=100, null=True, blank=True)
+    relationship_to_kinsey = models.CharField(max_length=100, null=True, blank=True)
+    profile_picture = models.ImageField(upload_to='profile_pics/', default='profile_pics/default.jpg', null=True, blank=True)
+
     
 '''   
 null=True:

@@ -109,3 +109,6 @@ class UserPost(models.Model):
 
     def __str__(self):
         return f"{self.author.username}: {self.content[:30]}"
+    
+    def get_absolute_url(self):
+        return reverse("userpost_detail", kwargs={"pk": self.pk})

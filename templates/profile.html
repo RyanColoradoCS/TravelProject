@@ -2,9 +2,15 @@
 
 {% block content %}
 <h2>My Profile</h2>
+
+{% if user.profile_picture %}
+    <img src="{{ user.profile_picture.url }}" alt="Profile Picture">
+{% else %}
+    <img src="{{ MEDIA_URL }}default_profile.jpg" alt="Default Profile Picture">
+{% endif %}
+
 <p><strong>Username:</strong> {{ user.username }}</p>
 <p><strong>Age:</strong> {{ user.age }}</p>
-<p><strong>Car Type:</strong> {{ user.car_type }}</p>
 
 <h2>Search for Friends</h2>
 <form method="get" action="">
@@ -19,7 +25,6 @@
             <li>
                 <strong>Username:</strong> {{ user.username }}<br>
                 <strong>Age:</strong> {{ user.age }}<br>
-                <strong>Car Type:</strong> {{ user.car_type }}
             </li>
         {% endfor %}
     </ul>

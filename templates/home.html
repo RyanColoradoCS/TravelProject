@@ -5,7 +5,7 @@
 {% block content %}
 {% if user.is_authenticated %}
 
-Hi {{ user.username }}! You are {{ user.age }} years old. Your car type is {{ user.car_type }}.
+Hi {{ user.username }}! You are {{ user.age }} years old.
 
 <form action="{% url 'logout' %}" method="post">
   {% csrf_token %}

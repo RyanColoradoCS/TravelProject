@@ -11,4 +11,5 @@ class PostForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = CustomUser  # Use the custom user model here
-        fields = ['username', 'age', 'car_type']
+        #fields = ['username', 'age', 'car_type']
+        fields = ['username', 'age']
