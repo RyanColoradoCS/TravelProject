@@ -162,4 +162,4 @@ MEDIA_URL = '/media/'
 # Django will save user-uploaded files inside this folder.
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+
