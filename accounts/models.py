@@ -1,12 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.urls import reverse
 
 # Create your models here.
-
-
-
-from django.contrib.auth.models import AbstractUser
-from django.db import models
 
 class CustomUser(AbstractUser):
     age = models.PositiveIntegerField(null=True, blank=True)
@@ -15,6 +11,9 @@ class CustomUser(AbstractUser):
     twitter_link = models.CharField(max_length=100, null=True, blank=True)
     relationship_to_kinsey = models.CharField(max_length=100, null=True, blank=True)
     profile_picture = models.ImageField(upload_to='profile_pics/', default='profile_pics/default.jpg', null=True, blank=True)
+    
+    def get_absolute_url(self):
+        return reverse("profile_link", kwargs={"pk": self.pk})
 
     
 '''   

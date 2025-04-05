@@ -12,6 +12,7 @@ urlpatterns = [
     path('test/', HomeView.as_view(), name='mydata'),
     path('feed/', feed_view, name='feed'),
     path('myprofile/', profile_view, name='myprofile'),
+    path('profile/<int:pk>/', profile_view, name='user_profile'), # Other users' profiles
 ]
 
 

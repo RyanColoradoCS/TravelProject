@@ -25,6 +25,7 @@
             <li>
                 <strong>Username:</strong> {{ user.username }}<br>
                 <strong>Age:</strong> {{ user.age }}<br>
+                <a href="{% url 'user_profile' user.pk %}">{{ user.username }}</a><br>
             </li>
         {% endfor %}
     </ul>

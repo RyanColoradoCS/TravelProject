@@ -5,7 +5,9 @@ from .models import Post, GoogleMapsData, Locations
 from django.conf import settings
 import logging
 import requests
-from accounts.models import CustomUser 
+from accounts.models import CustomUser
+from django.shortcuts import get_object_or_404, render
+
 
 from .models import UserPost
 from .forms import PostForm
@@ -92,12 +94,23 @@ def feed_view(request):
     else:
         form = PostForm()
     return render(request, 'feed.html', {'posts': posts, 'form': form})
-
+'''
 @login_required
 def profile_view(request):
     user = request.user  # Retrieve the logged-in user's data
     # Django includes an authentication system, and the request object represents an HTTP request made to your server.
     return render(request, 'profile.html', {'user': user})
+'''
+
+'''
+@login_required
+def profile_view(request, pk=None):
+    if pk:
+        user_profile = get_object_or_404(CustomUser, pk=pk)  # View another user's profile
+    else:
+        user_profile = request.user  # View logged-in user's own profile
+    
+    return render(request, 'profile.html', {'user': user_profile})
 
 
 @login_required
@@ -107,3 +120,20 @@ def profile_view(request):
     query = request.GET.get('q')  # Get the search query from the request
     users = CustomUser.objects.filter(username__icontains=query) if query else None
     return render(request, 'profile.html', {'users': users, 'query': query})
+    
+'''
+
+from django.shortcuts import get_object_or_404, render
+from django.contrib.auth.decorators import login_required
+from .models import CustomUser
+
+@login_required
+def profile_view(request, pk=None):
+    # Determine the profile to show
+    user_profile = get_object_or_404(CustomUser, pk=pk) if pk else request.user
+
+    # Handle search functionality
+    query = request.GET.get('q')
+    users = CustomUser.objects.filter(username__icontains=query) if query else None
+
+    return render(request, 'profile.html', {'user': user_profile, 'users': users, 'query': query})
