@@ -41,4 +41,4 @@ urlpatterns = [
 
 # The `static()` function connects MEDIA_URL to MEDIA_ROOT,
 # allowing media files to be displayed properly while running the Django development server.
-# NOTE: This is only used in development. In production, media files should be served by a web server like Nginx or Apache.
+# This is only used in development. In production, media files should be served by a web server like Nginx or Apache.

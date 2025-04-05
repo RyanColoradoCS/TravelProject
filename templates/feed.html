@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+
+{% block title %}Posts{% endblock title %}
+
 {% block content %}
 
 <h2>Welcome, {{ user.username }}!</h2>
@@ -11,12 +14,23 @@
 
 <hr>
 <h3>Recent Posts:</h3>
-<ul>
-    {% for post in posts %}
-        <li>
-            <strong>{{ post.author.username }}:</strong> {{ post.content }}
-            <small>{{ post.created_at }}</small>
-        </li>
-    {% endfor %}
-</ul>
+
+{% for post in posts %}
+    <div class="card mb-3">  <!-- Added Bootstrap classes for spacing -->
+        <div class="card-header">
+            <span class="fw-bold">
+                <a href="#">{{ post.title }}</a>
+            </span> &middot;
+            <span class="text-muted">by {{ post.author }} | {{ post.created_at }}</span>
+        </div>
+        <div class="card-body">
+            {{ post.content }}
+        </div>
+        <div class="card-footer text-center text-muted">
+            <a href="#">Edit</a> | <a href="#">Delete</a>
+        </div>
+    </div> <!-- Moved closing div inside the loop to keep structure consistent -->
+{% endfor %}
+
+
 {% endblock content %}

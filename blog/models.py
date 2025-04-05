@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
-from accounts.models import CustomUser 
+from accounts.models import CustomUser
+from django.utils.timezone import now
 
 # Import the reverse function to create URLs by reversing the URL patterns
 from django.urls import reverse
@@ -32,10 +33,12 @@ class Post(models.Model):
 
 class UserPost(models.Model):
     
+    title = models.CharField(max_length=255, default="Untitled Post", null=False, blank=False)  # Ensures it's always required
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     content = models.TextField(max_length=500)
-    created_at = models.DateTimeField(auto_now_add=True)
-
+    created_at = models.DateTimeField(auto_now_add=True)  # Use this for creation time
+    #edited_at = models.DateTimeField(auto_now=True) # add edited at laterf
+    
     def __str__(self):
         return f"{self.author.username}: {self.content[:30]}"
     

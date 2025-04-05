@@ -1,16 +1,11 @@
-from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView, View # A generic class-based view that displays a list of objects.
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import ListView, DetailView # A generic class-based view that displays a list of objects.
 from django.contrib.auth.decorators import login_required
 from .models import Post, UserPost
-from django.conf import settings
 import logging
-import requests
 from accounts.models import CustomUser
-from django.shortcuts import get_object_or_404, render
 from .forms import PostForm
-from django.shortcuts import get_object_or_404, render
-from django.contrib.auth.decorators import login_required
-from .models import CustomUser
+
 
 logger = logging.getLogger(__name__)
 
