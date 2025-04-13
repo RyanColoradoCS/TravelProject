@@ -5,6 +5,8 @@ from .models import Post, UserPost
 import logging
 from accounts.models import CustomUser
 from .forms import PostForm
+from django.conf import settings
+
 
 
 logger = logging.getLogger(__name__)
@@ -22,9 +24,17 @@ class BlogDetailView(DetailView):
     model = Post
     template_name = "post_detail.html"
 
+# TODO: Future improvements for feed_view
+# - Implement pagination to efficiently display posts without loading everything at once.
+# - Improve error handling to provide clearer messages when post creation fails.
+# - Use POST-Redirect-GET (PRG) pattern to prevent accidental form resubmission.
+# - Consider adding user notifications or feedback when new posts are created.
+# - Explore options for filtering or sorting posts based on categories or user preferences.
+
 @login_required
 def feed_view(request):
-    posts = UserPost.objects.all().order_by('-created_at')
+    #posts = UserPost.objects.all().order_by('-created_at')
+    posts = UserPost.objects.exclude(author=request.user).order_by('-created_at')
     if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
@@ -37,6 +47,7 @@ def feed_view(request):
     return render(request, 'feed.html', {'posts': posts, 'form': form})
 
 
+
 @login_required
 def profile_view(request, pk=None):
     # Determine the profile to show
@@ -46,4 +57,5 @@ def profile_view(request, pk=None):
     query = request.GET.get('q')
     users = CustomUser.objects.filter(username__icontains=query) if query else None
 
-    return render(request, 'profile.html', {'user': user_profile, 'users': users, 'query': query})
+    return render(request, 'profile.html', {'user': user_profile, 'users': users, 'query': query, 'MEDIA_URL': settings.MEDIA_URL})
+

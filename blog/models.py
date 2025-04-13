@@ -44,3 +44,11 @@ class UserPost(models.Model):
     
     def get_absolute_url(self):
         return reverse("userpost_detail", kwargs={"pk": self.pk})
+
+# TODO: Future improvements for UserPost model
+# - Add a `slug` field for SEO-friendly URLs and modify `get_absolute_url` accordingly.
+# - Implement a `likes` field to allow user interactions with posts.
+# - Consider adding a comment system for discussions.
+# - Improve content validation to enforce length restrictions properly.
+# - Ensure proper permissions and ownership checks in views.
+# - Explore additional metadata fields (tags, categories, etc.).
