@@ -10,7 +10,7 @@ urlpatterns = [
     path("blog/", BlogListView.as_view(), name="blog"),
     path('feed/', feed_view, name='feed'),
     path('myprofile/', profile_view, name='myprofile'),
-    path('profile/<int:pk>/', profile_view, name='user_profile'), # Other users' profiles
+    # path('profile/<int:pk>/', profile_view, name='user_profile'), # Other users' profiles
     path('profile/<int:pk>/', profile_view, name='profile_view'),
 
 ]

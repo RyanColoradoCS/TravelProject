@@ -53,6 +53,8 @@ def profile_view(request, pk=None):
     # Determine the profile to show
     user_profile = get_object_or_404(CustomUser, pk=pk) if pk else request.user
     
+    is_logged_in_user = user_profile == request.user
+    
     # Fetch posts by this user
     user_posts = UserPost.objects.filter(author=user_profile).order_by('-created_at')
 
@@ -60,5 +62,5 @@ def profile_view(request, pk=None):
     query = request.GET.get('q')
     users = CustomUser.objects.filter(username__icontains=query) if query else None
 
-    return render(request, 'profile.html', {'user': user_profile, 'user_posts': user_posts,'users': users, 'query': query, 'MEDIA_URL': settings.MEDIA_URL})
+    return render(request, 'profile.html', {'user': user_profile, 'user_posts': user_posts,'users': users, 'query': query, 'MEDIA_URL': settings.MEDIA_URL, 'is_logged_in_user': is_logged_in_user})
 

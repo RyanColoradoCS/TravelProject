@@ -1,26 +1,35 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>My Profile</h2>
-
-{% if user.profile_picture %}
-    <img src="{{ user.profile_picture.url }}" alt="Profile Picture">
+{% if is_logged_in_user %}
+    <h2>My Profile</h2>
 {% else %}
-    <img src="{{ MEDIA_URL }}default.jpg" alt="Default Profile Picture">
+    <h2>Viewing {{ user.username }}'s Profile</h2>
 {% endif %}
 
-<p><strong>Username:</strong> {{ user.username }}</p>
-<p><strong>Age:</strong> {{ user.age }}</p>
+<div class="profile-section">
+    {% if user.profile_picture %}
+        <img src="{{ user.profile_picture.url }}" alt="Profile Picture">
+    {% else %}
+        <img src="{{ MEDIA_URL }}default.jpg" alt="Default Profile Picture">
+    {% endif %}
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p><strong>Age:</strong> {{ user.age }}</p>
+</div>
 
 <h2>Posts by {{ user.username }}</h2>
-
 {% if user_posts %}
-    <ul>
+    <ul class="posts-list">
         {% for post in user_posts %}
-            <li>
+            <li class="post-item">
                 <p><strong>{{ post.title }}</strong></p>
                 <p>{{ post.content }}</p>
                 <p><small>Posted on {{ post.created_at }}</small></p>
+                {% if is_logged_in_user %}
+                    <div class="card-footer text-muted">
+                        <a href="#">Edit</a> | <a href="#">Delete</a>
+                    </div>
+                {% endif %}
             </li>
         {% endfor %}
     </ul>
@@ -28,33 +37,26 @@
     <p>{{ user.username }} has not posted anything yet.</p>
 {% endif %}
 
-<div class="card-footer text-center text-muted">
-    <a href="#">Edit</a> | <a href="#">Delete</a>
-</div>
-
 <h2>Search for Friends</h2>
 <form method="get" action="">
-    <input type="text" name="q" placeholder="Search by username" value="{% if query %}{{ query }}{% endif %}">
+    <input type="text" name="q" placeholder="Search by username" value="{{ query|default:"" }}">
     <button type="submit" class="btn btn-primary">Search</button>
 </form>
 
 {% if users %}
     <h3>Results:</h3>
-    <ul>
+    <ul class="user-list">
         {% for user in users %}
             <li>
-                <strong>Username:</strong> {{ user.username }}<br>
+                <strong>Username:</strong> <a href="{% url 'profile_view' user.pk %}">{{ user.username }}</a><br>
                 <strong>Age:</strong> {{ user.age }}<br>
-                <a href="{% url 'user_profile' user.pk %}">{{ user.username }}</a><br>
             </li>
         {% endfor %}
     </ul>
-    <h2>Search for Friends</h2>
     <form method="get" action="{% url 'myprofile' %}">
         <button type="submit" class="btn btn-primary">Reset Search</button>
     </form>
 {% elif query %}
     <p>No users found matching "{{ query }}".</p>
 {% endif %}
-
 {% endblock content %}
