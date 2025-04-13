@@ -64,3 +64,25 @@ def profile_view(request, pk=None):
 
     return render(request, 'profile.html', {'user': user_profile, 'user_posts': user_posts,'users': users, 'query': query, 'MEDIA_URL': settings.MEDIA_URL, 'is_logged_in_user': is_logged_in_user})
 
+@login_required
+def edit_post(request, pk):
+    
+    # Retrieve the post being edited
+    user_post = get_object_or_404(UserPost, pk=pk)
+
+    # Ensure only the author can edit the post
+    if user_post.author != request.user:
+        return redirect('profile_view', pk=request.user.pk)
+
+    if request.method == 'POST':
+        # Update post with form data
+        user_post.title = request.POST.get('title')
+        user_post.body = request.POST.get('body')
+        user_post.save()
+        # Redirect to profile page after saving
+        #return redirect('profile_view', pk=request.user.pk)
+        return redirect('profile_view', pk=user_post.author.pk)
+
+
+    # Render the edit form prefilled with post data
+    return render(request, 'edit_post.html', {'user_post': user_post})

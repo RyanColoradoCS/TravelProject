@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="edit-post">
+    <h2>Delete Post</h2>
+
+    <h3>{{ user_post.title }}</h3>
+    <p>{{ user_post.content }}</p>
+
+    <form method="post" class="edit-post-form">
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Delete</button>
+        <a href="{% url 'profile_view' user_post.author.pk %}" class="btn btn-danger">Cancel</a>
+    </div>
+    </form>
+</section>
+{% endblock content %}

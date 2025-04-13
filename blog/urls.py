@@ -1,6 +1,6 @@
 from django.urls import path 
 # Import the path function, which is used to define URL patterns.#
-from .views import BlogListView, BlogDetailView,feed_view, profile_view
+from .views import BlogListView, BlogDetailView,feed_view, profile_view, edit_post
 
 # Define the URL patterns for the blog app
 urlpatterns = [
@@ -12,6 +12,7 @@ urlpatterns = [
     path('myprofile/', profile_view, name='myprofile'),
     # path('profile/<int:pk>/', profile_view, name='user_profile'), # Other users' profiles
     path('profile/<int:pk>/', profile_view, name='profile_view'),
+    path('edit_post/<int:pk>/', edit_post, name='edit_post'),
 
 ]
 
