@@ -52,10 +52,13 @@ def feed_view(request):
 def profile_view(request, pk=None):
     # Determine the profile to show
     user_profile = get_object_or_404(CustomUser, pk=pk) if pk else request.user
+    
+    # Fetch posts by this user
+    user_posts = UserPost.objects.filter(author=user_profile).order_by('-created_at')
 
     # Handle search functionality
     query = request.GET.get('q')
     users = CustomUser.objects.filter(username__icontains=query) if query else None
 
-    return render(request, 'profile.html', {'user': user_profile, 'users': users, 'query': query, 'MEDIA_URL': settings.MEDIA_URL})
+    return render(request, 'profile.html', {'user': user_profile, 'user_posts': user_posts,'users': users, 'query': query, 'MEDIA_URL': settings.MEDIA_URL})
 

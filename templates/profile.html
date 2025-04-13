@@ -12,6 +12,22 @@
 <p><strong>Username:</strong> {{ user.username }}</p>
 <p><strong>Age:</strong> {{ user.age }}</p>
 
+<h2>Posts by {{ user.username }}</h2>
+
+{% if user_posts %}
+    <ul>
+        {% for post in user_posts %}
+            <li>
+                <p><strong>{{ post.title }}</strong></p>
+                <p>{{ post.content }}</p>
+                <p><small>Posted on {{ post.created_at }}</small></p>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>{{ user.username }} has not posted anything yet.</p>
+{% endif %}
+
 <div class="card-footer text-center text-muted">
     <a href="#">Edit</a> | <a href="#">Delete</a>
 </div>

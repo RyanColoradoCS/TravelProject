@@ -22,6 +22,8 @@
                 <a href="#">{{ post.title }}</a>
             </span> &middot;
             <span class="text-muted">by {{ post.author }} | {{ post.created_at }}</span>
+            <span class="text-muted">by <a href="{% url 'profile_view' post.author.pk %}">{{ post.author }}</a> | {{ post.created_at }}</span>
+
         </div>
         <div class="card-body">
             {{ post.content }}
