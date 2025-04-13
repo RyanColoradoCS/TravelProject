@@ -27,7 +27,7 @@
                 <p><small>Posted on {{ post.created_at }}</small></p>
                 {% if is_logged_in_user %}
                     <div class="card-footer text-muted">
-                        <a href="{% url 'edit_post' post.pk %}">Edit</a> | <a href="#">Delete</a>
+                        <a href="{% url 'edit_post' post.pk %}">Edit</a> | <a href="{% url 'delete_post' post.pk %}">Delete</a>
                     </div>
                 {% endif %}
             </li>
