@@ -44,6 +44,27 @@ class UserPost(models.Model):
     
     def get_absolute_url(self):
         return reverse("userpost_detail", kwargs={"pk": self.pk})
+    
+class Profile(models.Model):
+    
+    '''
+    OneToOneField is a type of foreign key in Django. However, it enforces a one-to-one relationship between two models, 
+    rather than the many-to-one relationship that a regular ForeignKey allows.
+    '''
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    # Add optional profile details
+    bio = models.TextField(max_length=500, blank=True)
+    profile_picture = models.ImageField(upload_to='profile_pics/', default='default.jpg', null=True, blank=True)
+    website = models.URLField(blank=True)
+    date_of_birth = models.DateField(blank=True, null=True)
+   
+    created_on = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"{self.user.username}'s Profile"
+    
+    def get_absolute_url(self):
+        return reverse("profile_detail", kwargs={"pk": self.pk})
 
 # TODO: Future improvements for UserPost model
 # - Add a `slug` field for SEO-friendly URLs and modify `get_absolute_url` accordingly.
