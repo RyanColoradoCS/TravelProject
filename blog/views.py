@@ -7,8 +7,6 @@ from accounts.models import CustomUser
 from .forms import PostForm
 from django.conf import settings
 
-
-
 logger = logging.getLogger(__name__)
 
 # Create your views here.
@@ -112,16 +110,19 @@ def delete_post(request, pk):
 def userprofile_view(request, pk=None):
     # Get the Profile instance
     user_profile = get_object_or_404(Profile, user__pk=pk) if pk else request.user.profile
-
+    logger.error(f"Accessed Profile: {user_profile.user.username}, ID: {user_profile.user.id}")
+    
     # Access the related User object
     user = user_profile.user
+    logger.error(f"User object: {user}, ID: {user.id}")
 
     # check if the user is logged in
     is_logged_in_user = user == request.user
 
     # Fetch posts by this user
-    #user_posts = UserPost.objects.filter(author=user).order_by('-created_on')
-
+    # user_posts = UserPost.objects.filter(author=user).order_by('-created_on')
+    user_posts = UserPost.objects.filter(author=user).order_by('-created_at')
+    
     # Handle search functionality
     query = request.GET.get('q')
     users = CustomUser.objects.filter(username__icontains=query) if query else None

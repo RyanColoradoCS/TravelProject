@@ -154,12 +154,31 @@ LOGOUT_REDIRECT_URL = "home"
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
-# MEDIA_URL: This defines the base URL path for serving media files.
-# It is used when accessing uploaded images and files via templates.
-MEDIA_URL = '/media/'
+
 
 # MEDIA_ROOT: This is the actual directory on the server where uploaded media files are stored.
 # Django will save user-uploaded files inside this folder.
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
 
+
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'INFO',  # Adjust level as needed (DEBUG, WARNING, ERROR)
+            'class': 'logging.FileHandler',
+            'filename': BASE_DIR / 'django_logs.log',  # Path to log file
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],  # Only log to file, NOT terminal
+            'level': 'INFO',
+            'propagate': False,
+        },
+    },
+}
