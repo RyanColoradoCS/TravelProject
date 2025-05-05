@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView # A generic class-based view that displays a list of objects.
 from django.contrib.auth.decorators import login_required
-from .models import Post, UserPost
+from .models import Post, UserPost, Profile
 import logging
 from accounts.models import CustomUser
 from .forms import PostForm
@@ -104,3 +104,33 @@ def delete_post(request, pk):
     
     # Render the edit form prefilled with post data
     return render(request, 'delete_post.html', {'user_post': user_post})
+
+
+# Testing new view for profiles instead of user accounts:
+
+@login_required
+def userprofile_view(request, pk=None):
+    # Get the Profile instance
+    user_profile = get_object_or_404(Profile, user__pk=pk) if pk else request.user.profile
+
+    # Access the related User object
+    user = user_profile.user
+
+    # check if the user is logged in
+    is_logged_in_user = user == request.user
+
+    # Fetch posts by this user
+    #user_posts = UserPost.objects.filter(author=user).order_by('-created_on')
+
+    # Handle search functionality
+    query = request.GET.get('q')
+    users = CustomUser.objects.filter(username__icontains=query) if query else None
+
+    return render(request, 'profile.html', {
+        'profile': user_profile,
+        'user_posts': user_posts,
+        'users': users,
+        'query': query,
+        'MEDIA_URL': settings.MEDIA_URL,
+        'is_logged_in_user': is_logged_in_user,
+    })
