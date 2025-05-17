@@ -6,6 +6,7 @@ import logging
 from accounts.models import CustomUser
 from .forms import PostForm
 from django.conf import settings
+from django.utils.timezone import now 
 
 logger = logging.getLogger(__name__)
 
@@ -76,6 +77,7 @@ def edit_post(request, pk):
         # Update post with form data
         user_post.title = request.POST.get('title')
         user_post.content = request.POST.get('content')
+        user_post.edited_date = now()  # Set edited_date only when editing
         user_post.save()
         # Redirect to profile page after saving
         #return redirect('profile_view', pk=request.user.pk)
