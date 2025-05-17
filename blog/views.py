@@ -104,28 +104,29 @@ def delete_post(request, pk):
     return render(request, 'delete_post.html', {'user_post': user_post})
 
 
-# Testing new view for profiles instead of user accounts:
-
 @login_required
 def userprofile_view(request, pk=None):
-    # Get the Profile instance
+    # Get the user of the profile in the link
     user_profile = get_object_or_404(Profile, user__pk=pk) if pk else request.user.profile
     logger.error(f"Accessed Profile: {user_profile.user.username}, ID: {user_profile.user.id}")
     
-    # Access the related User object
-    user = user_profile.user
-    logger.error(f"User object: {user}, ID: {user.id}")
+    # Ge the user object of the logged in user
+    current_user = request.user
+    logger.error(f"User object: {current_user}, ID: {current_user.id}")
 
-    # check if the user is logged in
-    is_logged_in_user = user == request.user
+    # check if profile is that of the logged in user or someone else
+    is_logged_in_user = current_user == user_profile.user
+    logger.error(f"Profile same as user? {is_logged_in_user}")
 
-    # Fetch posts by this user
-    # user_posts = UserPost.objects.filter(author=user).order_by('-created_on')
-    user_posts = UserPost.objects.filter(author=user).order_by('-created_at')
-    
+    # Fetch posts by this user of this profile
+    # old code: user_posts = UserPost.objects.filter(author=user_profile).order_by('-created_at')
+    user_posts = UserPost.objects.filter(author=user_profile.user).order_by('-created_at')
+
     # Handle search functionality
     query = request.GET.get('q')
     users = CustomUser.objects.filter(username__icontains=query) if query else None
+    # possibly better: users = CustomUser.objects.filter(username__icontains=query) if query else CustomUser.objects.none()
+
 
     return render(request, 'profile.html', {
         'profile': user_profile,

@@ -4,20 +4,24 @@
 {% if is_logged_in_user %}
     <h2>My Profile</h2>
 {% else %}
-    <h2>Viewing {{ user.username }}'s Profile</h2>
+    <h2>Viewing {{ profile.user.username }}'s Profile</h2>
 {% endif %}
 
 <div class="profile-section">
     {% if user.profile_picture %}
-        <img src="{{ user.profile_picture.url }}" alt="Profile Picture">
+        <img src="{{ profile.user.profile_picture.url }}" alt="Profile Picture">
     {% else %}
         <img src="{{ MEDIA_URL }}default.jpg" alt="Default Profile Picture">
     {% endif %}
-    <p><strong>Username:</strong> {{ user.username }}</p>
-    <p><strong>Age:</strong> {{ user.age }}</p>
+    <p><strong>Username:</strong> {{ profile.user.username }}</p>
+    <p><strong>Age:</strong> {{ profile.user.age }}</p>
 </div>
 
-<h2>Posts by {{ user.username }}</h2>
+{% if is_logged_in_user %}
+    <h2>Your posts:</h2>
+{% else %}
+    <h2>Posts by {{ profile.user.username }}</h2>
+{% endif %}
 {% if user_posts %}
     <ul class="posts-list">
         {% for post in user_posts %}
