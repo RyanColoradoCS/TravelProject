@@ -75,15 +75,16 @@ def edit_post(request, pk):
     if request.method == 'POST':
         # Update post with form data
         user_post.title = request.POST.get('title')
-        user_post.body = request.POST.get('body')
+        user_post.content = request.POST.get('content')
         user_post.save()
         # Redirect to profile page after saving
         #return redirect('profile_view', pk=request.user.pk)
-        return redirect('profile_view', pk=user_post.author.pk)
+        return redirect('userprofile_view', pk=user_post.author.pk)
     
     # Render the edit form prefilled with post data
     return render(request, 'edit_post.html', {'user_post': user_post})
 
+@login_required
 def delete_post(request, pk):
     
     # Retrieve the post being edited

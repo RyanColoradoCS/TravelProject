@@ -37,7 +37,7 @@ class UserPost(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     content = models.TextField(max_length=500)
     created_at = models.DateTimeField(auto_now_add=True)  # Use this for creation time
-    #edited_at = models.DateTimeField(auto_now=True) # add edited at laterf
+    #edited_at = models.DateTimeField(auto_now=True) # add edited at later
     
     def __str__(self):
         return f"{self.author.username}: {self.content[:30]}"
