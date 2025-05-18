@@ -161,8 +161,10 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
 
-
-
+# This setting in Django determines how emails are sent within your application
+# This will work on the command line for now
+# I will set up an actual email later
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 LOGGING = {
     'version': 1,
@@ -182,3 +184,7 @@ LOGGING = {
         },
     },
 }
+
+
+
+
