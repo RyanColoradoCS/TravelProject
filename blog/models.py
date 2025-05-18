@@ -34,6 +34,7 @@ class Post(models.Model):
 class UserPost(models.Model):
     
     title = models.CharField(max_length=255, default="Untitled Post", null=False, blank=False)  # Ensures it's always required
+    # If the user is deleted, all their posts will also be deleted.
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     content = models.TextField(max_length=500)
     created_at = models.DateTimeField(auto_now_add=True)  # Use this for creation time

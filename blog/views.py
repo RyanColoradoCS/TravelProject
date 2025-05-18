@@ -94,14 +94,14 @@ def delete_post(request, pk):
 
     # Ensure only the author can edit the post
     if user_post.author != request.user:
-        return redirect('profile_view', pk=request.user.pk)
+        return redirect('userprofile_view', pk=request.user.pk)
 
     if request.method == 'POST':
         # Update post with form data
         user_post.delete()
         # Redirect to profile page after saving
         #return redirect('profile_view', pk=request.user.pk)
-        return redirect('profile_view', pk=user_post.author.pk)
+        return redirect('userprofile_view', pk=user_post.author.pk)
     
     # Render the edit form prefilled with post data
     return render(request, 'delete_post.html', {'user_post': user_post})
