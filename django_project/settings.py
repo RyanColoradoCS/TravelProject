@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     "crispy_forms",  # new
     "crispy_bootstrap5",  # new
     
-    'pages', # for static pages
+    #'pages', # for static pages
     'accounts',
     
 ]

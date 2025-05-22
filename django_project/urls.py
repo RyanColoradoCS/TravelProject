@@ -1,7 +1,7 @@
 
 from django.contrib import admin
 from django.urls import path, include
-from . import views
+from .views import home
 from django.views.generic.base import TemplateView
 from django.conf.urls.static import static
 from django.conf import settings
@@ -17,10 +17,8 @@ urlpatterns = [
     path('accounts/', include("accounts.urls")),  # Custom account URLs
     path('accounts/', include("django.contrib.auth.urls")),  # Django's built-in auth
     
-    # Static pages
-    #path("", TemplateView.as_view(template_name="home.html"), name="home"),  # Home page
-    #path("home/", TemplateView.as_view(template_name="home.html"), name="home"),  # Home page
-    path("", include("pages.urls")),
+    path("", home, name="home"),  # Home page
+    path("home/", home, name="home"),  # Home page
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # The `static()` function connects MEDIA_URL to MEDIA_ROOT,

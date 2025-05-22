@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Home</title>
-</head>
-<body>
-    <h1>Blog Posts</h1>
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+
+<h1>Blog Posts</h1>
     <ul>
         {% for post in post_list %}
             <li>
@@ -16,5 +14,5 @@
             </li>
         {% endfor %}
     </ul>
-</body>
-</html>
+
+{% endblock content %}
