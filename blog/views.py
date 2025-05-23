@@ -45,24 +45,6 @@ def feed_view(request):
         form = PostForm()
     return render(request, 'feed.html', {'posts': posts, 'form': form})
 
-
-
-@login_required
-def profile_view(request, pk=None):
-    # Determine the profile to show
-    user_profile = get_object_or_404(CustomUser, pk=pk) if pk else request.user
-    
-    is_logged_in_user = user_profile == request.user
-    
-    # Fetch posts by this user
-    user_posts = UserPost.objects.filter(author=user_profile).order_by('-created_at')
-
-    # Handle search functionality
-    query = request.GET.get('q')
-    users = CustomUser.objects.filter(username__icontains=query) if query else None
-
-    return render(request, 'profile.html', {'user': user_profile, 'user_posts': user_posts,'users': users, 'query': query, 'MEDIA_URL': settings.MEDIA_URL, 'is_logged_in_user': is_logged_in_user})
-
 @login_required
 def edit_post(request, pk):
     
@@ -113,7 +95,7 @@ def userprofile_view(request, pk=None):
     user_profile = get_object_or_404(Profile, user__pk=pk) if pk else request.user.profile
     logger.error(f"Accessed Profile: {user_profile.user.username}, ID: {user_profile.user.id}")
     
-    # Ge the user object of the logged in user
+    # Get the user object of the logged in user
     current_user = request.user
     logger.error(f"User object: {current_user}, ID: {current_user.id}")
 
@@ -139,3 +121,25 @@ def userprofile_view(request, pk=None):
         'MEDIA_URL': settings.MEDIA_URL,
         'is_logged_in_user': is_logged_in_user,
     })
+
+
+
+'''
+Probably not needed:
+@login_required
+def profile_view(request, pk=None):
+    # Determine the profile to show
+    user_profile = get_object_or_404(CustomUser, pk=pk) if pk else request.user
+    
+    is_logged_in_user = user_profile == request.user
+    
+    # Fetch posts by this user
+    user_posts = UserPost.objects.filter(author=user_profile).order_by('-created_at')
+
+    # Handle search functionality
+    query = request.GET.get('q')
+    users = CustomUser.objects.filter(username__icontains=query) if query else None
+
+    return render(request, 'profile.html', {'user': user_profile, 'user_posts': user_posts,'users': users, 'query': query, 'MEDIA_URL': settings.MEDIA_URL, 'is_logged_in_user': is_logged_in_user})
+
+'''
