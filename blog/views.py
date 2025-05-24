@@ -34,6 +34,21 @@ def about_view(request):
     return render(request, 'about.html')
 
 @login_required
+def update_profile(request):
+    #if request.method == "POST":
+        #user = request.user
+        #user.age = request.POST.get("age")
+        
+        # Handle profile picture upload
+
+
+        #user.save()
+        # Redirect to profile page after updating
+
+    # return render
+    pass
+
+@login_required
 def feed_view(request):
     #posts = UserPost.objects.all().order_by('-created_at')
     posts = UserPost.objects.exclude(author=request.user).order_by('-created_at')

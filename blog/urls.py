@@ -9,14 +9,11 @@ urlpatterns = [
     path('post/<int:pk>/', BlogDetailView.as_view(), name='post_detail'),
     path("blog/", BlogListView.as_view(), name="blog"),
     path('feed/', feed_view, name='feed'),
-    # path('myprofile/', profile_view, name='myprofile'),
-    # path('profile/<int:pk>/', profile_view, name='user_profile'), # View other users' profiles
-    # path('profile/<int:pk>/', profile_view, name='profile_view'),
     path('edit_post/<int:pk>/', edit_post, name='edit_post'),
     path('delete_post/<int:pk>/', delete_post, name='delete_post'),
-    # test
     path('userprofile/<int:pk>/', userprofile_view, name='userprofile_view'),
     path('about/', about_view, name='about_view'),
+    # path('profile/edit/', update_profile, name='update_profile'),
 ]
 
 

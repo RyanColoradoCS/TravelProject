@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Update Profile{% endblock title %}
+
+{% block content %}
+<h2>Edit Your Profile</h2>
+<form method="post" action="{% url 'update_profile' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <label for="age">Age:</label>
+    <input type="number" name="age" id="age" class="form-control" value="{{ user.age }}">
+
+    <label for="profile_picture">Profile Picture:</label>
+    <input type="file" name="profile_picture" id="profile_picture" class="form-control">
+
+    <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+</form>
+{% endblock content %}
