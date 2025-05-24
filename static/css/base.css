@@ -1,0 +1,45 @@
+/* Force Pink Navbar */
+.navbar {
+    background-color: #ff1493 !important; /* Strong pink */
+    color: white !important;
+    padding: 15px 20px;
+}
+
+/* Ensure Bootstrap Doesn't Override */
+.navbar.bg-body-tertiary {
+    background-color: #ff1493 !important;
+}
+
+/* Ensure navbar links contrast well */
+.navbar-brand, .nav-link {
+    color: white !important;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.nav-link:hover {
+    color: #ffccdd !important; /* Light pink hover effect */
+}
+
+/* Fix dropdown menu styling */
+.dropdown-menu {
+    background-color: #ff1493 !important;
+    border: none;
+}
+
+.dropdown-item {
+    color: white !important;
+}
+
+.dropdown-item:hover {
+    background-color: #e60073 !important;
+}
+
+/* Make the navbar toggle button visible */
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-toggler-icon {
+    filter: invert(1); /* Makes the toggle button white */
+}
