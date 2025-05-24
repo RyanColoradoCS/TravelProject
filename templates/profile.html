@@ -18,7 +18,7 @@
 </div>
 
 {% if is_logged_in_user %}
-    <h2>Your posts:</h2>
+    <h2>My posts:</h2>
 {% else %}
     <h2>Posts by {{ profile.user.username }}</h2>
 {% endif %}
@@ -42,7 +42,11 @@
         {% endfor %}
     </ul>
 {% else %}
-    <p>{{ user.username }} has not posted anything yet.</p>
+    {% if is_logged_in_user %}
+        <p>You have not posted anything yet.</p>
+    {% else%}
+        <p>{{ user.username }} has not posted anything yet.</p>
+    {% endif %}
 {% endif %}
 
 <h2>Search for Friends</h2>
@@ -56,12 +60,12 @@
     <ul class="user-list">
         {% for user in users %}
             <li>
-                <strong>Username:</strong> <a href="{% url 'profile_view' user.pk %}">{{ user.username }}</a><br>
+                <strong>Username:</strong> <a href="{% url 'userprofile_view' user.pk %}">{{ user.username }}</a><br>
                 <strong>Age:</strong> {{ user.age }}<br>
             </li>
         {% endfor %}
     </ul>
-    <form method="get" action="{% url 'myprofile' %}">
+    <form method="get" action="{% url 'userprofile_view' user.pk %}">
         <button type="submit" class="btn btn-primary">Reset Search</button>
     </form>
 {% elif query %}
