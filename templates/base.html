@@ -44,7 +44,7 @@
                 {{ user.username }}
               </a>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#">Account Settings</a></li>
+                <li><a class="dropdown-item" href="{% url 'update_profile'%}">Account Settings</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="{% url 'password_change' %}">Change password</a></li>
                 <li><hr class="dropdown-divider"></li>

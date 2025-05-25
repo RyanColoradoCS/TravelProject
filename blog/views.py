@@ -34,19 +34,23 @@ def about_view(request):
     return render(request, 'about.html')
 
 @login_required
-def update_profile(request):
-    #if request.method == "POST":
-        #user = request.user
-        #user.age = request.POST.get("age")
+def update_profile(request, pk=None):
+    # Get profile for the logged-in user
+    profile = get_object_or_404(Profile, user=request.user)
+    
+    if request.method == "POST":
+        profile.bio = request.POST.get("bio")
+        profile.website = request.POST.get("website")
+        profile.date_of_birth = request.POST.get("date_of_birth")
         
-        # Handle profile picture upload
-
-
-        #user.save()
+        # Handle profile picture upload later
+        profile.save()
+        
         # Redirect to profile page after updating
-
+        return redirect("userprofile_view", profile.user.pk)
+    
     # return render
-    pass
+    return render(request, 'update_profile.html')
 
 @login_required
 def feed_view(request):
