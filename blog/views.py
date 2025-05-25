@@ -115,15 +115,15 @@ def delete_post(request, pk):
 def userprofile_view(request, pk=None):
     # Get the user of the profile in the link
     user_profile = get_object_or_404(Profile, user__pk=pk) if pk else request.user.profile
-    logger.error(f"Accessed Profile: {user_profile.user.username}, ID: {user_profile.user.id}")
+    #logger.error(f"Accessed Profile: {user_profile.user.username}, ID: {user_profile.user.id}")
     
     # Get the user object of the logged in user
     current_user = request.user
-    logger.error(f"User object: {current_user}, ID: {current_user.id}")
+    #logger.error(f"User object: {current_user}, ID: {current_user.id}")
 
     # check if profile is that of the logged in user or someone else
     is_logged_in_user = current_user == user_profile.user
-    logger.error(f"Profile same as user? {is_logged_in_user}")
+    #logger.error(f"Profile same as user? {is_logged_in_user}")
 
     # Fetch posts by this user of this profile
     # old code: user_posts = UserPost.objects.filter(author=user_profile).order_by('-created_at')
@@ -133,7 +133,6 @@ def userprofile_view(request, pk=None):
     query = request.GET.get('q')
     users = CustomUser.objects.filter(username__icontains=query) if query else None
     # possibly better: users = CustomUser.objects.filter(username__icontains=query) if query else CustomUser.objects.none()
-
 
     return render(request, 'profile.html', {
         'profile': user_profile,
